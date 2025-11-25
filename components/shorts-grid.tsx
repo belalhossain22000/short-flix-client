@@ -14,12 +14,21 @@ interface ShortsGridProps {
 export function ShortsGrid({ searchTerm = "", selectedTag = "" }: ShortsGridProps) {
   const [page, setPage] = useState(1)
   const [allShorts, setAllShorts] = useState<Short[]>([])
+  const [searchKey, setSearchKey] = useState(0) // Force re-query on search/tag change
+  
   const { data, isLoading, error, isFetching } = useGetShortsQuery(
     { page, limit: 40, search: searchTerm, tag: selectedTag },
     { refetchOnMountOrArgChange: true }
   )
 
   const observerRef = useRef<HTMLDivElement | null>(null)
+
+  // Reset when search/filter changes (happens BEFORE query runs)
+  useEffect(() => {
+    setPage(1)
+    setAllShorts([])
+    setSearchKey((prev) => prev + 1) // Force fresh query
+  }, [searchTerm, selectedTag])
 
   // Append new shorts when data changes
   useEffect(() => {
@@ -28,12 +37,6 @@ export function ShortsGrid({ searchTerm = "", selectedTag = "" }: ShortsGridProp
       else setAllShorts((prev) => [...prev, ...data.data.data])
     }
   }, [data?.data?.data, page])
-
-  // Reset when search/filter changes
-  useEffect(() => {
-    setPage(1)
-    setAllShorts([])
-  }, [searchTerm, selectedTag])
 
   // IntersectionObserver for infinite scroll
   useEffect(() => {
