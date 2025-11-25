@@ -4,7 +4,7 @@ import { useAppDispatch } from "@/hooks/use-app-dispatch"
 import { openPlayer } from "@/store/slices/uiSlice"
 import type { Short } from "@/types/shorts"
 import { Play, Pause, Heart, Eye } from "lucide-react"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 interface ShortCardProps {
   short: Short
@@ -13,8 +13,8 @@ interface ShortCardProps {
 export function ShortCard({ short }: ShortCardProps) {
   const dispatch = useAppDispatch()
   const videoRef = useRef<HTMLVideoElement>(null)
-  const [showControls, setShowControls] = useState(true) 
-  const [isPlaying, setIsPlaying] = useState(false) 
+  const [showControls, setShowControls] = useState(true)
+  const [isPlaying, setIsPlaying] = useState(false)
 
   const handlePlay = () => {
     const video = videoRef.current;
@@ -24,7 +24,7 @@ export function ShortCard({ short }: ShortCardProps) {
       video.play()
         .then(() => {
           setIsPlaying(true)
-          
+
           setTimeout(() => {
             setShowControls(false)
           }, 2000)
@@ -33,13 +33,36 @@ export function ShortCard({ short }: ShortCardProps) {
     } else {
       video.pause();
       setIsPlaying(false)
-      setShowControls(true) 
+      setShowControls(true)
     }
   }
 
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0]
+
+        if (!entry.isIntersecting) {
+          video.pause()
+          setIsPlaying(false)
+          setShowControls(true)
+        }
+      },
+      { threshold: 0.6 } 
+    )
+
+    observer.observe(video)
+
+    return () => observer.disconnect()
+  }, [])
+
+
   const handleVideoEnded = () => {
     setIsPlaying(false)
-    setShowControls(true) 
+    setShowControls(true)
   }
 
   return (
@@ -89,11 +112,11 @@ export function ShortCard({ short }: ShortCardProps) {
           <div className="flex items-center justify-between text-xs text-gray-300 pt-2 border-t border-white/10">
             <div className="flex items-center gap-1">
               <Eye className="h-3 w-3" />
-              {short.views ? short.views.toLocaleString() : "0"}
+              "0"
             </div>
             <div className="flex items-center gap-1">
               <Heart className="h-3 w-3" />
-              {short.likes || "0"}
+              "0"
             </div>
           </div>
         </div>
