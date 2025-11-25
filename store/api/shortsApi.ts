@@ -5,7 +5,8 @@ export const shortsApi = createApi({
   reducerPath: "shortsApi",
   baseQuery: fetchBaseQuery({
     // baseUrl: "http://localhost:4000/api",
-    baseUrl: "http://139.59.163.31:4000/api",
+    // baseUrl: "http://139.59.163.31:4000/api",
+    baseUrl: "https://short-flix-server.vercel.app/api",
   }),
   tagTypes: ["Shorts"],
   endpoints: (builder) => ({

@@ -125,7 +125,7 @@ export function AddShortForm() {
                 variant="outline"
                 className="border-border text-foreground hover:bg-muted bg-transparent"
               >
-                {isLoading ? "Adding..." : "Add"}
+             Add
               </Button>
             </div>
 
@@ -156,7 +156,7 @@ export function AddShortForm() {
               Cancel
             </Button>
             <Button type="submit" className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground">
-              Add Short
+              {isLoading ? "Adding..." : "Add Short"}
             </Button>
           </div>
         </form>
