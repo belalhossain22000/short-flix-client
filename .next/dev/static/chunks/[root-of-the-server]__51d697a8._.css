@@ -140,10 +140,10 @@
       --tw-backdrop-sepia: initial;
       --tw-duration: initial;
       --tw-ease: initial;
+      --tw-content: "";
       --tw-scale-x: 1;
       --tw-scale-y: 1;
       --tw-scale-z: 1;
-      --tw-content: "";
       --tw-animation-delay: 0s;
       --tw-animation-direction: normal;
       --tw-animation-duration: initial;
@@ -503,10 +503,6 @@
 
   .invisible {
     visibility: hidden;
-  }
-
-  .visible {
-    visibility: visible;
   }
 
   .sr-only {
@@ -1310,10 +1306,6 @@
 
   .rotate-90 {
     rotate: 90deg;
-  }
-
-  .rotate-180 {
-    rotate: 180deg;
   }
 
   .transform {
@@ -2524,21 +2516,8 @@
     --cell-size: calc(var(--spacing) * 8);
   }
 
-  .paused {
-    animation-play-state: paused;
-  }
-
   .group-focus-within\/menu-item\:opacity-100:is(:where(.group\/menu-item):focus-within *) {
     opacity: 1;
-  }
-
-  @media (hover: hover) {
-    .group-hover\:scale-110:is(:where(.group):hover *) {
-      --tw-scale-x: 110%;
-      --tw-scale-y: 110%;
-      --tw-scale-z: 110%;
-      scale: var(--tw-scale-x) var(--tw-scale-y);
-    }
   }
 
   @media (hover: hover) {
@@ -5871,6 +5850,12 @@
   inherits: false
 }
 
+@property --tw-content {
+  syntax: "*";
+  inherits: false;
+  initial-value: "";
+}
+
 @property --tw-scale-x {
   syntax: "*";
   inherits: false;
@@ -5887,12 +5872,6 @@
   syntax: "*";
   inherits: false;
   initial-value: 1;
-}
-
-@property --tw-content {
-  syntax: "*";
-  inherits: false;
-  initial-value: "";
 }
 
 @keyframes spin {

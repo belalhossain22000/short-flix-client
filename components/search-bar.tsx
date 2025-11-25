@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { Input } from "@/components/ui/input"
 import { useAppDispatch } from "@/hooks/use-app-dispatch"
 import { useAppSelector } from "@/hooks/use-app-selector"
@@ -8,22 +8,38 @@ import { setSearchQuery } from "@/store/slices/shortsSlice"
 import { Search, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
-export function SearchBar() {
+interface SearchBarProps {
+  value?: string
+  onChange?: (value: string) => void
+}
+
+export function SearchBar({ value, onChange }: SearchBarProps) {
   const dispatch = useAppDispatch()
   const searchQuery = useAppSelector((state) => state.shorts.searchQuery)
-  const [inputValue, setInputValue] = useState(searchQuery)
+  const [inputValue, setInputValue] = useState<string>(value ?? searchQuery)
+
+  useEffect(() => {
+    // keep local input in sync when value prop changes
+    if (typeof value === "string") setInputValue(value)
+  }, [value])
 
   const handleSearch = useCallback(
-    (value: string) => {
-      setInputValue(value)
-      dispatch(setSearchQuery(value))
+    (val: string) => {
+      setInputValue(val)
+      if (onChange) {
+        onChange(val)
+      } else {
+        // fallback to redux behavior for older usages
+        dispatch(setSearchQuery(val))
+      }
     },
-    [dispatch],
+    [dispatch, onChange],
   )
 
   const handleClear = () => {
     setInputValue("")
-    dispatch(setSearchQuery(""))
+    if (onChange) onChange("")
+    else dispatch(setSearchQuery(""))
   }
 
   return (

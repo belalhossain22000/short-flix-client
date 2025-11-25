@@ -15,10 +15,14 @@ export function ShortsGrid({ searchTerm = "", selectedTag = "" }: ShortsGridProp
   const [page, setPage] = useState(1)
   const { data, isLoading, error } = useGetShortsQuery({
     page,
-    limit: 20,
+    limit: 18,
     search: searchTerm,
     tag: selectedTag,
-  })
+  },
+    {
+      refetchOnMountOrArgChange: true,
+    }
+  )
 
 
   const shorts = data?.data?.data || []

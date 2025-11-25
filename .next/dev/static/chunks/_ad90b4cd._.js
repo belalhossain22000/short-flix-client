@@ -832,9 +832,11 @@ function ShortsGrid({ searchTerm = "", selectedTag = "" }) {
     const [page, setPage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(1);
     const { data, isLoading, error } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$store$2f$api$2f$shortsApi$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useGetShortsQuery"])({
         page,
-        limit: 20,
+        limit: 18,
         search: searchTerm,
         tag: selectedTag
+    }, {
+        refetchOnMountOrArgChange: true
     });
     const shorts = data?.data?.data || [];
     if (isLoading) {
@@ -844,12 +846,12 @@ function ShortsGrid({ searchTerm = "", selectedTag = "" }) {
                 className: "h-8 w-8 text-primary"
             }, void 0, false, {
                 fileName: "[project]/components/shorts-grid.tsx",
-                lineNumber: 30,
+                lineNumber: 34,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/components/shorts-grid.tsx",
-            lineNumber: 29,
+            lineNumber: 33,
             columnNumber: 7
         }, this);
     }
@@ -861,12 +863,12 @@ function ShortsGrid({ searchTerm = "", selectedTag = "" }) {
                 children: "Failed to load shorts. Please try again."
             }, void 0, false, {
                 fileName: "[project]/components/shorts-grid.tsx",
-                lineNumber: 38,
+                lineNumber: 42,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/components/shorts-grid.tsx",
-            lineNumber: 37,
+            lineNumber: 41,
             columnNumber: 7
         }, this);
     }
@@ -878,12 +880,12 @@ function ShortsGrid({ searchTerm = "", selectedTag = "" }) {
                 children: "No shorts found matching your filters"
             }, void 0, false, {
                 fileName: "[project]/components/shorts-grid.tsx",
-                lineNumber: 46,
+                lineNumber: 50,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/components/shorts-grid.tsx",
-            lineNumber: 45,
+            lineNumber: 49,
             columnNumber: 7
         }, this);
     }
@@ -896,12 +898,12 @@ function ShortsGrid({ searchTerm = "", selectedTag = "" }) {
                         short: short
                     }, short.id, false, {
                         fileName: "[project]/components/shorts-grid.tsx",
-                        lineNumber: 55,
+                        lineNumber: 59,
                         columnNumber: 11
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/components/shorts-grid.tsx",
-                lineNumber: 53,
+                lineNumber: 57,
                 columnNumber: 7
             }, this),
             data?.data?.meta && data?.data?.meta.total > data?.data.meta.limit && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -914,7 +916,7 @@ function ShortsGrid({ searchTerm = "", selectedTag = "" }) {
                         children: "Previous"
                     }, void 0, false, {
                         fileName: "[project]/components/shorts-grid.tsx",
-                        lineNumber: 62,
+                        lineNumber: 66,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -925,7 +927,7 @@ function ShortsGrid({ searchTerm = "", selectedTag = "" }) {
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/shorts-grid.tsx",
-                        lineNumber: 69,
+                        lineNumber: 73,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -935,19 +937,19 @@ function ShortsGrid({ searchTerm = "", selectedTag = "" }) {
                         children: "Next"
                     }, void 0, false, {
                         fileName: "[project]/components/shorts-grid.tsx",
-                        lineNumber: 70,
+                        lineNumber: 74,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/shorts-grid.tsx",
-                lineNumber: 61,
+                lineNumber: 65,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/components/shorts-grid.tsx",
-        lineNumber: 52,
+        lineNumber: 56,
         columnNumber: 5
     }, this);
 }
