@@ -85,7 +85,9 @@
     --color-red-300: #ffa3a3;
     --color-red-400: #ff6568;
     --color-red-600: #e40014;
+    --color-gray-200: #e5e7eb;
     --color-gray-300: #d1d5dc;
+    --color-gray-700: #364153;
     --color-black: #000;
     --color-white: #fff;
     --spacing: .25rem;
@@ -131,7 +133,9 @@
       --color-red-300: lab(76.5514% 36.422 15.5335);
       --color-red-400: lab(63.7053% 60.745 31.3109);
       --color-red-600: lab(48.4493% 77.4328 61.5452);
+      --color-gray-200: lab(91.6229% -.159115 -2.26791);
       --color-gray-300: lab(85.1236% -.612259 -3.7138);
+      --color-gray-700: lab(27.1134% -.956401 -12.3224);
     }
   }
 }
@@ -844,6 +848,10 @@
     height: var(--cell-size);
   }
 
+  .h-1 {
+    height: calc(var(--spacing) * 1);
+  }
+
   .h-1\.5 {
     height: calc(var(--spacing) * 1.5);
   }
@@ -928,6 +936,10 @@
     height: 1px;
   }
 
+  .h-screen {
+    height: 100vh;
+  }
+
   .h-svh {
     height: 100svh;
   }
@@ -962,10 +974,6 @@
 
   .min-h-16 {
     min-height: calc(var(--spacing) * 16);
-  }
-
-  .min-h-24 {
-    min-height: calc(var(--spacing) * 24);
   }
 
   .min-h-screen {
@@ -1681,6 +1689,10 @@
     background-color: var(--foreground);
   }
 
+  .bg-gray-200 {
+    background-color: var(--color-gray-200);
+  }
+
   .bg-input {
     background-color: var(--input);
   }
@@ -2150,6 +2162,10 @@
 
   .text-gray-300 {
     color: var(--color-gray-300);
+  }
+
+  .text-gray-700 {
+    color: var(--color-gray-700);
   }
 
   .text-muted-foreground {
@@ -2882,6 +2898,12 @@
       .hover\:bg-destructive\/90:hover {
         background-color: color-mix(in oklab, var(--destructive) 90%, transparent);
       }
+    }
+  }
+
+  @media (hover: hover) {
+    .hover\:bg-gray-300:hover {
+      background-color: var(--color-gray-300);
     }
   }
 
@@ -4250,6 +4272,12 @@
   }
 
   @media (min-width: 40rem) {
+    .sm\:grid-cols-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 40rem) {
     .sm\:grid-cols-3 {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
@@ -4364,6 +4392,12 @@
   }
 
   @media (min-width: 48rem) {
+    .md\:grid-cols-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 48rem) {
     .md\:grid-cols-4 {
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
@@ -4453,6 +4487,12 @@
     .md\:after\:hidden:after {
       content: var(--tw-content);
       display: none;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .lg\:grid-cols-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
     }
   }
 

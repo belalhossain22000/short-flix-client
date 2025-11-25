@@ -40,7 +40,7 @@ export function TagFilter({ selectedTag, onTagChange }: TagFilterProps) {
     <div className="space-y-3">
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-medium text-foreground">Filter by Tags</h3>
-        {(isTagSelected("") || selectedTags.length > 0) && (
+        {((selectedTag && selectedTag !== "") || (selectedTags && selectedTags.length > 0)) && (
           <Button
             variant="ghost"
             size="sm"

@@ -8,18 +8,19 @@ import { closeForm } from "@/store/slices/uiSlice"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { addShort as addShortAction } from "@/store/slices/shortsSlice"
 import type { Short } from "@/store/slices/shortsSlice"
 import { X } from "lucide-react"
+import { useAddShortMutation } from "@/store/api/shortsApi"
+import { toast } from "react-hot-toast"
 
 export function AddShortForm() {
   const dispatch = useAppDispatch()
   const { isFormOpen } = useAppSelector((state) => state.ui)
   const [title, setTitle] = useState("")
-  const [description, setDescription] = useState("")
+  const [videoUrl, setVideoUrl] = useState("")
   const [tagInput, setTagInput] = useState("")
   const [tags, setTags] = useState<string[]>([])
+  const [addShort, { isLoading }] = useAddShortMutation()
 
   const handleAddTag = () => {
     if (tagInput.trim() && !tags.includes(tagInput.trim())) {
@@ -32,34 +33,47 @@ export function AddShortForm() {
     setTags(tags.filter((t) => t !== tagToRemove))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
     if (!title.trim()) {
-      alert("Please enter a title")
+      toast.error("Please enter a title")
+      return
+    }
+
+    if (!videoUrl.trim()) {
+      toast.error("Please enter a video URL")
+      return
+    }
+
+    // Validate .mp4 format
+    if (!videoUrl.trim().toLowerCase().endsWith(".mp4")) {
+      toast.error("Video URL must be in .mp4 format")
       return
     }
 
     const newShort: Short = {
-      id: Date.now().toString(),
       title: title.trim(),
-      description: description.trim(),
-      videoUrl: `/placeholder.svg?height=600&width=400&query=${encodeURIComponent(title)}`,
-      thumbnail: `/placeholder.svg?height=225&width=400&query=${encodeURIComponent(title)}`,
+      videoUrl: videoUrl.trim(),
       tags: tags.length > 0 ? tags : ["new"],
-      views: 0,
-      likes: 0,
-      createdAt: new Date().toISOString().split("T")[0],
     }
 
-    dispatch(addShortAction(newShort))
-    dispatch(closeForm())
+    try {
+      const res = await addShort(newShort).unwrap()
 
-    // Reset form
-    setTitle("")
-    setDescription("")
-    setTagInput("")
-    setTags([])
+
+      if (res?.success) {
+        toast.success("Short added successfully!")
+        dispatch(closeForm())
+        setTitle("")
+        setVideoUrl("")
+        setTags([])
+      }
+
+
+    } catch (error: any) {
+      toast.error(error?.data?.message || "Failed to add short")
+    }
   }
 
   return (
@@ -81,12 +95,12 @@ export function AddShortForm() {
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium text-foreground">Description</label>
-            <Textarea
-              placeholder="Add a description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              className="min-h-24 bg-input text-foreground border-border placeholder:text-muted-foreground"
+            <label className="text-sm font-medium text-foreground">Video Url</label>
+            <Input
+              placeholder="Short video url .mp4"
+              value={videoUrl}
+              onChange={(e) => setVideoUrl(e.target.value)}
+              className="bg-input text-foreground border-border placeholder:text-muted-foreground"
             />
           </div>
 
@@ -111,7 +125,7 @@ export function AddShortForm() {
                 variant="outline"
                 className="border-border text-foreground hover:bg-muted bg-transparent"
               >
-                Add
+                {isLoading ? "Adding..." : "Add"}
               </Button>
             </div>
 

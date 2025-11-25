@@ -7,6 +7,7 @@ import { TagFilter } from "@/components/tag-filter"
 import { ShortsGrid } from "@/components/shorts-grid"
 import { VideoPlayerModal } from "@/components/video-player-modal"
 import { AddShortForm } from "@/components/add-short-form"
+import  { Toaster } from 'react-hot-toast';
 
 export default function HomeClient() {
     const [searchTerm, setSearchTerm] = useState("")
@@ -15,7 +16,7 @@ export default function HomeClient() {
     return (
         <main className="min-h-screen bg-background">
             <Header />
-
+            <Toaster />
             <div className="mx-auto max-w-7xl px-4 py-8 md:px-6">
                 <div className="space-y-6">
                     <div className="max-w-md">
