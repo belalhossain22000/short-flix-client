@@ -4,8 +4,8 @@ import type { Short, ShortsResponse } from "@/types/shorts"
 export const shortsApi = createApi({
   reducerPath: "shortsApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:4000/api",
-    // baseUrl: "http://139.59.163.31:4000/api",
+    // baseUrl: "http://localhost:4000/api",
+    baseUrl: "http://139.59.163.31:4000/api",
   }),
   tagTypes: ["Shorts"],
   endpoints: (builder) => ({
