@@ -155,7 +155,7 @@ export function AddShortForm() {
             >
               Cancel
             </Button>
-            <Button type="submit" className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground">
+            <Button disabled={isLoading} type="submit" className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground">
               {isLoading ? "Adding..." : "Add Short"}
             </Button>
           </div>
